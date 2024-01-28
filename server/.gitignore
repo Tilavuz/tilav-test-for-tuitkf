@@ -1,1 +1,11 @@
-node_modules
+# Node.js dependencies
+node_modules/
+
+# Local environment variables
+.env
+
+# Log files
+*.log
+
+# Cache files
+.cache/
