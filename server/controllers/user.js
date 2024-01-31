@@ -5,7 +5,6 @@ const jwtDecoded = process.env.JWT_DECODED
 
 
 const authUser = async (req, res) => {
-
     try {
         const user = await User.findOne({ loginCode: req.body.loginCode })
 
@@ -20,8 +19,20 @@ const authUser = async (req, res) => {
         console.error("Foydalanuvchi izlashda xatolik:", error);
         res.status(500).send("Serverda xatolik yuzaga keldi");
     }
-
 }
+
+
+// Put user name
+const putUserName = async (req, res) => {
+    try {
+        const user = await User.findByIdAndUpdate(req.body.id, { name: req.body.name }, { new: true });
+        const token = jwt.sign({id: user._id, name: user.name, phone: user.phone}, jwtDecoded)
+        res.send(token)
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
 
 
 // Get user by id
@@ -37,4 +48,4 @@ const getUserId = async (req, res) => {
 
 
 
-module.exports = { getUserId, authUser }
+module.exports = { getUserId, authUser, putUserName }

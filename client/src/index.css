@@ -12,3 +12,15 @@
 body {
     background-color: white;
 }
+
+::-webkit-scrollbar {
+    width: 0;
+}
+
+::-moz-scrollbar {
+    width: 0;
+}
+
+::-ms-scrollbar {
+    width: 0;
+}
