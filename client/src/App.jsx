@@ -8,6 +8,7 @@ import RootLayout from "./layouts/RootLayout"
 const Home = lazy(() => import("./pages/home/Home"))
 const Tests = lazy(() => import('./pages/tests/Tests'))
 const Login = lazy(() => import('./pages/login/Login'))
+const AuthorTest = lazy(() => import('./pages/authorTest/AuthorTest'))
 
 export default function App() {
 
@@ -40,6 +41,14 @@ export default function App() {
             </Suspense>
           )
         },
+        {
+          path: '/authors/:authorId/tests',
+          element: (
+            <Suspense fallback={<p>loading...</p>}>
+              <AuthorTest />
+            </Suspense>
+          )
+        }
       ]
     }
   ])

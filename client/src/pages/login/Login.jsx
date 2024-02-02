@@ -15,7 +15,7 @@ export default function Login() {
     try {
       const res = await axios.post(url + '/login', code)
       localStorage.setItem('token', res.data)
-      window.location = '/'
+      window.location = '/tests'
     }catch(err) {
       console.error(err);
     }

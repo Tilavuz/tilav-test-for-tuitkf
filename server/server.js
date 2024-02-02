@@ -9,12 +9,13 @@ app.use(json())
 
 // Routers
 const user = require('./routers/user')
+const test = require('./routers/test')
 
-
+// User router
 app.use('/api', user)
 
-
-
+// Test router
+app.use('/api', test)
 
 
 
