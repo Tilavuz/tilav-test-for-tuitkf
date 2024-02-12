@@ -10,6 +10,7 @@ app.use(json())
 // Routers
 const user = require('./routers/user')
 const test = require('./routers/test')
+const admin = require('./routers/admin')
 
 // User router
 app.use('/api', user)
@@ -17,6 +18,8 @@ app.use('/api', user)
 // Test router
 app.use('/api', test)
 
+// Admin router
+app.use('/api/admin', admin)
 
 
 

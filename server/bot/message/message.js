@@ -24,7 +24,6 @@ bot.on('message', async msg => {
         login(msg)
     }
 
-
 })
 
 

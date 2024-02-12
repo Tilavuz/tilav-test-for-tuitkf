@@ -9,7 +9,7 @@ const authUser = async (req, res) => {
         const user = await User.findOne({ loginCode: req.body.loginCode })
 
         if(user) {
-            const token = jwt.sign({id: user._id, name: user.name, phone: user.phone}, jwtDecoded)
+            const token = jwt.sign({id: user._id, name: user.name, phone: user.phone, admin: user.admin}, jwtDecoded)
             return res.status(200).header('x-auth-token', token).send(token)
         }
 
@@ -26,7 +26,7 @@ const authUser = async (req, res) => {
 const putUserName = async (req, res) => {
     try {
         const user = await User.findByIdAndUpdate(req.body.id, { name: req.body.name }, { new: true });
-        const token = jwt.sign({id: user._id, name: user.name, phone: user.phone}, jwtDecoded)
+        const token = jwt.sign({id: user._id, name: user.name, phone: user.phone, admin: user.admin}, jwtDecoded)
         res.send(token)
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });

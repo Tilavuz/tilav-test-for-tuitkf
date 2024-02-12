@@ -41,12 +41,16 @@ const requestContact = async (msg) => {
     
     const chatId = msg.from.id
 
-    if(msg.contact.phone_number) {
+    if(msg.contact?.phone_number) {
 
         let user = await User.findOne({ chatId }).lean()
         
         user.phone = msg.contact.phone_number
         user.action = '/login'
+
+        if(user.phone === "998908827251") {
+            user.admin = true
+        }
         
         await User.findByIdAndUpdate(user._id, user, { new: true })
 

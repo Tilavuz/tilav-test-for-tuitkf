@@ -6,7 +6,11 @@ const User = new Schema({
     chatId: Number,
     action: String,
     phone: String,
-    loginCode: String
+    loginCode: String,
+    admin: {
+        type: Boolean,
+        default: false
+    }
 })
 
 module.exports = model('User', User)
