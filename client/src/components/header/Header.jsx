@@ -101,7 +101,7 @@ export default function Header() {
                             )
                           }
                         </div>
-                        <p className="text-xs">{userData?.phone}</p>
+                        <p className="text-xs">+{userData?.phone}</p>
                       </div>
                       <Link to='/tests' className="px-2 flex items-center gap-2 hover:bg-slate-400 rounded-sm transition-all">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-book" viewBox="0 0 16 16">

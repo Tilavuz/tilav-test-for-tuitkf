@@ -37,7 +37,7 @@ function AuthorTest() {
   return (
     <div className="py-20 flex flex-col gap-8">
         {
-            testsData ? (
+            localStorage.getItem('token') ? (
                 <>
                     <div className="flex gap-2 justify-center flex-wrap">
                         {
