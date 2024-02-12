@@ -5,6 +5,7 @@ const { json } = require('express')
 const app = require('express')()
 app.use(require('cors')())
 app.use(json())
+const port = process.env.PORT
 
 
 // Routers
@@ -34,6 +35,6 @@ app.use('/api/admin', admin)
 
 
 
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log('connect 3000 - port');
 })

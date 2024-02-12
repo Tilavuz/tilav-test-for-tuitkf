@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
+const MDCON = process.env.MDCON
 
 function db() {
-    mongoose.connect('mongodb://127.0.0.1:27017/tilavtest')
+    mongoose.connect(MDCON)
         .then(() => {
             console.log('Connect db');
         })
