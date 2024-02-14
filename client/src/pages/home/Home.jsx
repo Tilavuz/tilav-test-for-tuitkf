@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef } from 'react'
-import tuitkf from '../../assets/tuitkf.png'
+import tuitkf from '../../assets/tuitkf.webp'
 
 
 export default function Home() {

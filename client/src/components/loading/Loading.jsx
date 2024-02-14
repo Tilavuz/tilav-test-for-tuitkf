@@ -1,12 +1,13 @@
 const Loading = () => {
   return (
     <div className="flex items-center justify-center h-screen">
-      <div className="flex justify-center items-center">
-        <div className="h-12 w-12 bg-blue-500 rounded-full mr-2 animate-bounce"></div>
-        <div className="h-12 w-12 bg-blue-500 rounded-full mr-2 animate-bounce"></div>
-        <div className="h-12 w-12 bg-blue-500 rounded-full mr-2 animate-bounce"></div>
-        <div className="h-12 w-12 bg-blue-500 rounded-full mr-2 animate-bounce"></div>
-        <div className="h-12 w-12 bg-blue-500 rounded-full animate-bounce"></div>
+      <div
+        className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+        role="status"
+      >
+        <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+          Loading...
+        </span>
       </div>
     </div>
   );

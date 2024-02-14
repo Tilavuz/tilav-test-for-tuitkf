@@ -26,6 +26,13 @@ export default function Tests() {
               return <Test key={i} id={author._id} name={author.name} science={author?.science} date={author?.date} />
             })
         }
+        {
+          authorsData.length === 0 && (
+            <div className="w-full h-[80vh] flex justify-center items-center">
+              <h4 className="font-bold text-2xl">Hali birorta ham test mavjut emas!</h4>
+            </div>
+          )
+        }
       </div>
     </div>
   )

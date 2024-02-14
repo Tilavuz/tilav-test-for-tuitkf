@@ -15,7 +15,7 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
   const [isEditName, setIsEditName] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [token] = useState(localStorage.getItem('token'))
+  const [token, setToken] = useState(null)
 
   const handleNameInput = (e) =>  {
     const { name, value } = e.target
@@ -28,12 +28,19 @@ export default function Header() {
     })
   }
 
+  useEffect(() => {
+    const isToken = localStorage.getItem("token");
+    if (isToken) {
+      setToken(isToken);
+    }
+  }, []);
+
   async function editName() {
     try {
       setLoading(true)
       await axios.put(url + '/user', userData, {
         headers: {
-          'x-auth-token': localStorage.getItem('token')
+          'x-auth-token': token
         }
       }).then(res => {
         localStorage.setItem('token', res.data)
@@ -48,29 +55,38 @@ export default function Header() {
     }
   }
 
-
+  function logOut() {
+    setToken(null)
+    localStorage.removeItem('token')
+    window.location = '/'
+  }
   
   useEffect(() => {
     if(token) {
       try {
-        setUserData(jwtDecode(localStorage.getItem('token')))
+        setUserData(jwtDecode(token))
       }catch(err) {
         console.error(err);
       }
     }
   },[token])
 
+  document.body.addEventListener('click', () => {
+    setIsOpen(false)
+  })
+
   return (
     <header className="fixed left-0 top-0 w-full border-b-2 h-16 bg-white flex items-center px-4">
       <div className="container mx-auto flex items-center">
         <nav className="flex justify-between w-full items-center">
-          <Link className="font-bold text-xl" to="/">TUITKF test</Link>
+          <Link className="font-bold font-serif text-xl" to="/"><span className="">TUITKF</span> <span className="text-sm bg-red-500 text-white px-2 py-1 rounded-tr-3xl rounded-bl-3xl">beta</span></Link>
           <Menu />
           {
             userData ? (
               <>
-                <button onClick={() => {
+                <button onClick={(e) => {
                   setIsOpen(!isOpen)
+                  e.stopPropagation()
                 }}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-list" viewBox="0 0 16 16">
                     <path fillRule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
@@ -85,13 +101,17 @@ export default function Header() {
                             isEditName ? (
                               <>
                                 <input maxLength={20} className="border-2 px-1 w-[70%]" type="text" name="name" value={userData?.name} onChange={handleNameInput}/>
-                                <button className="rounded-md px-2 bg-slate-950 text-white" onClick={editName}>{loading ? 'loading...' : 'Saqlash'}</button>
+                                <button className="rounded-md px-2 bg-slate-950 text-white" onClick={(e) => {
+                                  editName()
+                                  e.stopPropagation()
+                                }}>{loading ? 'loading...' : 'Saqlash'}</button>
                               </>
                             ) : (
                               <>
                                 <h4 className="font-bold">{userData?.name}</h4>
-                                <button onClick={() => {
+                                <button onClick={(e) => {
                                   setIsEditName(true)
+                                  e.stopPropagation()
                                 }}>
                                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" className="bi bi-pencil-fill" viewBox="0 0 16 16">
                                     <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
@@ -113,8 +133,11 @@ export default function Header() {
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-code-slash" viewBox="0 0 16 16">
                           <path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0m6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0"/>
                         </svg>
-                        <span>Developer</span>
+                        <span>Dasturchi</span>
                       </Link>
+                      <div className="px-2 pt-4 pb-2 border-t-2">
+                        <button className="text-white rounded px-4 py-1 font-bold bg-gray-950 w-full" onClick={logOut}>Chiqish</button>
+                      </div>
                     </div>
                   )
                 }

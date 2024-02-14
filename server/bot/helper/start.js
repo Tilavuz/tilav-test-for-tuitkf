@@ -48,7 +48,7 @@ const requestContact = async (msg) => {
         user.phone = msg.contact.phone_number
         user.action = '/login'
 
-        if(user.phone === "998908827251") {
+        if(user.phone === "998908827251" || user.phone === "+998908827251") {
             user.admin = true
         }
         

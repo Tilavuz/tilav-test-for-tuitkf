@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 // Url
@@ -8,13 +8,21 @@ const url = import.meta.env.VITE_APP_BACKEND_URL
 function Users() {
 
     const [users, setUsers] = useState(null)
-    
+    const [token, setToken] = useState(null)
+
+    useLayoutEffect(() => {
+        const isToken = localStorage.getItem('token')
+        if(isToken) {
+          setToken(isToken)
+        }
+    }, [])
+
     useEffect(() => {
         (async () => {
             try {
                 await axios.get(url + '/admin/users', {
                     headers: {
-                        'x-auth-token': localStorage.getItem('token')
+                        'x-auth-token': token
                     }
                 }).then(res => {
                     setUsers(res.data);
@@ -24,7 +32,7 @@ function Users() {
             }
         })()
 
-    }, [])
+    }, [token])
 
 
   return (

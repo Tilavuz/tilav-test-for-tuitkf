@@ -9,12 +9,20 @@ const url = import.meta.env.VITE_APP_BACKEND_URL
 function AllTests() {
 
   const [tests, setTests] = useState(null)
+  const [token, setToken] = useState(null)
+
+  useEffect(() => {
+    const isToken = localStorage.getItem('token')
+    if(isToken) {
+      setToken(isToken)
+    }
+  }, [])
 
   useEffect(() => {
     (async () => {
       await axios.get(url + '/authors', {
         headers: {
-          'x-auth-token': localStorage.getItem('token')
+          'x-auth-token': token
         }
       }).then(res => {
         setTests(res.data);
@@ -22,20 +30,19 @@ function AllTests() {
         console.error(err);
       })
     })()
-  }, [])
+  }, [token])
 
   async function deleteTest(id) {
     try {
       await axios.delete(url + `/author/${id}`, {
         headers: {
-          'x-auth-token': localStorage.getItem('token')
+          'x-auth-token': token
         }
       })
     }catch(err) {
       console.error(err);
     }
   }
-
 
   return (
     <div className="flex gap-x-4 gap-y-8 flex-wrap">

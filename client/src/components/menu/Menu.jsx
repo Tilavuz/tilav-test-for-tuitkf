@@ -12,7 +12,6 @@ const menu = [
     }
 ]
 
-
 function Menu() {
   return (
     <ul className=" hidden md:flex md:gap-x-8 md:items-center">

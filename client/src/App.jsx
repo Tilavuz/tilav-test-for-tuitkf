@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import { lazy, Suspense, useState } from "react"
+import { lazy, Suspense, useEffect, useState } from "react"
 import Loader from "./components/loading/Loading"
-import {jwtDecode} from 'jwt-decode'
+import { jwtDecode } from 'jwt-decode'
 
 // LayOuts
 import RootLayout from "./layouts/RootLayout"
@@ -18,7 +18,13 @@ const Users = lazy(() => import("./pages/admin/Users"))
 const AdminTests = lazy(() => import("./pages/admin/AdminTests"))
 
 export default function App() {
-  const [userData] = useState(jwtDecode(localStorage.getItem('token')))
+  const [userData, setUserData] = useState(null)
+
+  useEffect(() => {
+    if(localStorage.getItem('token')) {
+      setUserData(jwtDecode(localStorage.getItem('token')))
+    }
+  }, [])
 
 
   const router = createBrowserRouter([
@@ -61,9 +67,9 @@ export default function App() {
         }
       ]
     },
-    userData.admin && {
+    {
       path: '/admin',
-      element: <AdminLayout />,
+      element: userData?.admin && <AdminLayout />,
       errorElement: <ErrorPage />,
       children: [
         {
