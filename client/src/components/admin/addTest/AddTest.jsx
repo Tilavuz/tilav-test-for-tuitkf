@@ -12,6 +12,8 @@ function AddTest() {
   const [authorId, setAuthorId] = useState(null);
   const [token, setToken] = useState(null);
   const [file, setFile] = useState(null);
+  const [isAdded, setIsAdded] = useState(false)
+  const [isPending, setIsPending] = useState(false)
 
   useEffect(() => {
     const isToken = localStorage.getItem("token");
@@ -39,6 +41,7 @@ function AddTest() {
   async function addTest(e) {
     e.preventDefault();
     try {
+      setIsPending(true)
       if (!file) {
         console.error("Fayl tanlanmagan");
         return;
@@ -53,16 +56,23 @@ function AddTest() {
         author: authorId._id,
       };
 
-      const res = await axios.post(url + "/test", formData, {
+      await axios.post(url + "/test", formData, {
         headers: {
           "x-auth-token": token,
           "Content-Type": "multipart/form-data",
         },
       });
 
-      console.log(res);
+      setIsAdded(true)
+      setTimeout(() => {
+        setIsAdded(false)
+      },1500)
+
+      
     } catch (err) {
       console.error(err);
+    }finally {
+      setIsPending(false)
     }
   }
 
@@ -124,7 +134,9 @@ function AddTest() {
             />
           </label>
           <button className="border-2 px-2 py-1" type="submit">
-            Biriktirish
+            {
+              isPending ? 'loading...' : isAdded ? 'Biriktirildi ✅' : 'Biriktirish'
+            }
           </button>
         </form>
       ) : (
