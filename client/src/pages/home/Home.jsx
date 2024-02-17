@@ -5,7 +5,7 @@ const First = lazy(() => import('./First'))
 
 export default function Home() {
   return (
-    <div className="px-2 flex flex-col">
+    <div className="py-20 md:py-0 px-2 flex flex-col">
       <Suspense>
         <First />
       </Suspense>

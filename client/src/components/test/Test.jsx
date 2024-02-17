@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types';
 
- function Test({ name, id, science, date }) {
+ function Test({ name, id, science, date, openSearch }) {
 
   return (
-    <Link to={`/authors/${id}/tests`} className='shadow'>
+    <Link to={`/authors/${id}/tests`} className='shadow' onClick={openSearch}>
         <h6 className="h-[200px] w-[300px] border-b-2 text-4xl font-bold flex justify-center items-center bg-slate-300 text-center"><span>{science}</span></h6>
         <ul className="px-2 py-4">
             <li><span className="font-bold">Muallif: </span>{name}</li>
@@ -18,7 +18,8 @@ Test.propTypes = {
   name: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   science: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired
+  date: PropTypes.string.isRequired,
+  openSearch: PropTypes.func
 };
 
 

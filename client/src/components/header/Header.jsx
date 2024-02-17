@@ -7,6 +7,7 @@ const url = import.meta.env.VITE_APP_BACKEND_URL
 
 // Menu
 import Menu from "../menu/Menu"
+import Search from "../search/Search"
 
 
 export default function Header() {
@@ -16,6 +17,7 @@ export default function Header() {
   const [isEditName, setIsEditName] = useState(false)
   const [loading, setLoading] = useState(false)
   const [token, setToken] = useState(null)
+  const [search, setSearch] = useState(false)
 
   const handleNameInput = (e) =>  {
     const { name, value } = e.target
@@ -26,6 +28,10 @@ export default function Header() {
         [name]: value
       }
     })
+  }
+
+  function openSearch() {
+    setSearch(!search)
   }
 
   useEffect(() => {
@@ -96,7 +102,7 @@ export default function Header() {
                   isOpen && (
                     <div className="absolute py-2 rounded-md max-w-[300px] w-full border-2 right-2 top-14 bg-white flex flex-col gap-2">
                       <div className="border-b-2 px-2 pb-2">
-                        <div className="flex justify-between gap-2">
+                        <div className="flex justify-between gap-2" onClick={(e) => e.stopPropagation()}>
                           {
                             isEditName ? (
                               <>
@@ -135,6 +141,12 @@ export default function Header() {
                         </svg>
                         <span>Dasturchi</span>
                       </Link>
+                      <button onClick={openSearch} className="px-2 flex items-center gap-2 hover:bg-slate-400 rounded-sm transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
+                          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                        </svg>
+                        <span>Qidiruv</span>
+                      </button>
                       <div className="px-2 pt-4 pb-2 border-t-2">
                         <button className="text-white rounded px-4 py-1 font-bold bg-gray-950 w-full" onClick={logOut}>Chiqish</button>
                       </div>
@@ -146,6 +158,9 @@ export default function Header() {
           }
         </nav>
       </div>
+      {
+        search && <Search openSearch={openSearch} />
+      }
     </header>
   )
 }

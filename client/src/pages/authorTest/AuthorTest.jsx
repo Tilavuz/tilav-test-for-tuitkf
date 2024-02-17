@@ -34,7 +34,7 @@ function AuthorTest() {
                 });
                 setTestsData(res.data[0].test);
             } catch (error) {
-                console.error(error);
+                console.log('xatolik');
             }
         };
         
@@ -74,7 +74,7 @@ function AuthorTest() {
                     </>
                 ) : (
                     <div className="w-full h-[80vh] flex justify-center items-center">
-                        <h4 className="font-bold text-2xl">Test yechish uchun saytga kirishingiz kerak!</h4>
+                        <h4 className="font-bold text-2xl text-center">Test yechish uchun saytga kirishingiz kerak!</h4>
                     </div>
                 )
             }

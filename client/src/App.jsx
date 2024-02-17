@@ -31,7 +31,11 @@ export default function App() {
     {
       path: '/',
       element: <RootLayout />,
-      errorElement: <ErrorPage />,
+      errorElement: (
+        <Suspense fallback={<Loader />}>
+          <ErrorPage />
+        </Suspense>
+      ),
       children: [
         {
           index: true,
@@ -69,8 +73,12 @@ export default function App() {
     },
     {
       path: '/admin',
-      element: userData?.admin && <AdminLayout />,
-      errorElement: <ErrorPage />,
+      element: userData?.admin ? <AdminLayout /> : <ErrorPage />,
+      errorElement: (
+        <Suspense fallback={<Loader />}>
+          <ErrorPage />
+        </Suspense>
+      ),
       children: [
         {
           index: true,

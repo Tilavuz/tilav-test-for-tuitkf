@@ -37,6 +37,7 @@ function Users() {
 
   return (
     <ul className='flex flex-col flex-grow gap-3 py-5 px-8'>
+        <p>Users: {users?.length}</p>
         {
             users?.map(user => {
                 return <li className='flex justify-between rounded-md border-2 px-2 h-[60px] items-center' key={uuidv4()}>
