@@ -1,9 +1,10 @@
 const User = require('../bot/models/user')
 const jwt = require('jsonwebtoken')
 const jwtDecoded = process.env.JWT_DECODED
+const { Message } = require('../models/usermsg')
 
 
-
+// Auth user
 const authUser = async (req, res) => {
     try {
         const user = await User.findOne({ loginCode: req.body.loginCode })
@@ -21,6 +22,27 @@ const authUser = async (req, res) => {
     }
 }
 
+// user message
+const postMessage = async (req, res) => {
+    try {
+        const msg = {
+            id: req.body.id,
+            name: req.body.name,
+            message: req.body.message,
+            phone: req.body.phone,
+            ip: req.ip
+        }
+        
+        const newMsg = new Message(msg)
+
+        await newMsg.save()
+        
+        return res.json({msg: 'Habaringiz yuborildi !'})
+
+    }catch {
+
+    }
+}
 
 // Put user name
 const putUserName = async (req, res) => {
@@ -35,17 +57,4 @@ const putUserName = async (req, res) => {
 
 
 
-// Get user by id
-const getUserId = async (req, res) => {
-
-}
-
-
-
-
-
-
-
-
-
-module.exports = { getUserId, authUser, putUserName }
+module.exports = { authUser, putUserName, postMessage }

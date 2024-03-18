@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { getUserId, authUser, putUserName } = require('../controllers/user')
+const { authUser, putUserName, postMessage } = require('../controllers/user')
 const { auth } = require('../middlewares/auth')
 
 
@@ -10,10 +10,8 @@ const { auth } = require('../middlewares/auth')
 router.post('/login', authUser)
 
 
-
-
-// Get user by id
-router.get('/user', auth, getUserId)
+// Send user message
+router.post('/user/faq', postMessage)
 
 
 // Put user name

@@ -1,4 +1,5 @@
 const User = require('../bot/models/user')
+const { Message } = require('../models/usermsg')
 
 const getUsers = async (req, res) => {
     try {
@@ -9,5 +10,15 @@ const getUsers = async (req, res) => {
     }
 }
 
+const getMessages = async (req, res) => {
+    try {
+        const msg = await Message.find()
+        const data = msg.reverse()
+        res.json(data)
+    }catch (err) {
+        console.log(err);
+    }
+}
 
-module.exports = { getUsers }
+
+module.exports = { getUsers, getMessages }

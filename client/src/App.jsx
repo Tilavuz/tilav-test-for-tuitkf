@@ -16,6 +16,7 @@ const ErrorPage = lazy(() => import('./pages/error/ErrorPage'))
 const Admin = lazy(() => import("./pages/admin/Admin"))
 const Users = lazy(() => import("./pages/admin/Users"))
 const AdminTests = lazy(() => import("./pages/admin/AdminTests"))
+const Faq = lazy(() => import('./pages/faq/Faq'))
 
 export default function App() {
   const [userData, setUserData] = useState(null)
@@ -66,6 +67,14 @@ export default function App() {
           element: (
             <Suspense fallback={<Loader />}>
               <AuthorTest />
+            </Suspense>
+          )
+        },
+        {
+          path: '/faq',
+          element: (
+            <Suspense fallback={<Loader />}>
+              <Faq />
             </Suspense>
           )
         }

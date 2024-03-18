@@ -9,6 +9,10 @@ const menu = [
     {
         title: 'Testlar',
         link: '/tests'
+    },
+    {
+        title: 'Faq',
+        link: '/faq'
     }
 ]
 
